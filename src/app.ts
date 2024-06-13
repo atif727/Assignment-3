@@ -10,7 +10,6 @@ app.use(cors());
 // application
 
 app.use('/api/car', carRoutes);
-// app.use('/api/orders', orderRoutes);
 
 const home = (req: Request, res: Response) => {
   res.send('erm hii..');

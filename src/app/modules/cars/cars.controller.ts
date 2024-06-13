@@ -17,6 +17,28 @@ const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const createCar: RequestHandler = catchAsync(async (req, res) => {
+  const result = await carServices.createCarInDB(req.body);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Car created succesfully',
+    data: result,
+  });
+});
+
+const findCarById: RequestHandler = catchAsync(async (req, res) => {
+  const result = await carServices.getCarById(req.params._id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'A Car retrieved  succesfully',
+    data: result,
+  });
+});
+
 export const carsController = {
   getAllOrQueryCars,
+  createCar,
+  findCarById
 };
