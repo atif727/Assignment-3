@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { carRoutes } from './app/modules/cars/cars.routes';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 const app: Application = express();
 
 // parser
@@ -16,6 +17,7 @@ const home = (req: Request, res: Response) => {
 };
 
 app.get('/', home);
+app.use(globalErrorHandler)
 
 app.all('*', (req, res) => {
   res.status(404).json({

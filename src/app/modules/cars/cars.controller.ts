@@ -3,6 +3,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import { carServices } from './cars.service';
 import sendResponse from '../../utils/sendResponse';
+import { Xcars } from './cars.interface';
 
 // made it get all cars or get cars through query params
 const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
@@ -18,7 +19,8 @@ const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const createCar: RequestHandler = catchAsync(async (req, res) => {
-  const result = await carServices.createCarInDB(req.body);
+  const body: Xcars = req.body;
+  const result = await carServices.createCarInDB(body);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -37,8 +39,20 @@ const findCarById: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const updateCarById: RequestHandler = catchAsync(async (req, res) => {
+  const result = await carServices.updateCarById(req.params._id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'A Car Updated succesfully',
+    data: result,
+  });
+});
+
 export const carsController = {
   getAllOrQueryCars,
   createCar,
-  findCarById
+  findCarById,
+  updateCarById,
 };
