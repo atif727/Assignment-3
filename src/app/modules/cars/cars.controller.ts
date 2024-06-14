@@ -4,12 +4,15 @@ import catchAsync from '../../utils/catchAsync';
 import { carServices } from './cars.service';
 import sendResponse from '../../utils/sendResponse';
 import { Xcars } from './cars.interface';
+import { noDataFound } from '../../errors/noDataFoundError';
 
 // made it get all cars or get cars through query params
 const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
   console.log(req.query.name);
   const result = await carServices.getAllOrQueryCarsFromDB(req.query);
-
+  if (result.length === 0) {
+    noDataFound(res);
+  }
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

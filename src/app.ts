@@ -19,6 +19,7 @@ const home = (req: Request, res: Response) => {
 app.get('/', home);
 app.use(globalErrorHandler)
 
+// used this because i was facing some problems with app.use(notFound route)
 app.all('*', (req, res) => {
   res.status(404).json({
     success: false,
