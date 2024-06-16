@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { carRoutes } from './app/modules/cars/cars.routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import { bookingRoutes } from './app/modules/bookings/bookings.routes';
 const app: Application = express();
 
 // parser
@@ -10,7 +11,8 @@ app.use(cors());
 
 // application
 
-app.use('/api/car', carRoutes);
+app.use('/api/cars', carRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 const home = (req: Request, res: Response) => {
   res.send('erm hii..');

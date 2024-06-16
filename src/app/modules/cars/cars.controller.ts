@@ -34,6 +34,9 @@ const createCar: RequestHandler = catchAsync(async (req, res) => {
 
 const findCarById: RequestHandler = catchAsync(async (req, res) => {
   const result = await carServices.getCarById(req.params._id);
+  if (result === null) {
+    noDataFound(res);
+  }
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -52,6 +55,7 @@ const updateCarById: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 
 export const carsController = {
   getAllOrQueryCars,

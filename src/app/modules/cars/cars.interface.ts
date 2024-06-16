@@ -1,4 +1,4 @@
-import { Date } from 'mongoose';
+import { Date, ObjectId } from 'mongoose';
 
 export interface Xcars {
   name: string;
@@ -10,6 +10,7 @@ export interface Xcars {
 }
 
 export interface Cars {
+  _id: ObjectId
   name: string;
   description: string;
   color: string;

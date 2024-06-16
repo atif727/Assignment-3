@@ -7,6 +7,6 @@ export const noDataFound = async (res: Response) => {
     success: false,
     statusCode: httpStatus.NOT_FOUND,
     message: 'No Data Found',
-    data: [],
+    data: "No Data",
   });
 };
