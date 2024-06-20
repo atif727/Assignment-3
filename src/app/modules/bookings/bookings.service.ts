@@ -1,5 +1,3 @@
-import { MULTIPLE_CHOICES } from 'http-status';
-import { noDataFound } from '../../errors/noDataFoundError';
 import subtractTimes from '../../utils/TimeParser';
 import { carModel } from '../cars/cars.model';
 import { bookedInterface } from './bookings.interface';
