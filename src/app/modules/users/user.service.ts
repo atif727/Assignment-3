@@ -18,6 +18,7 @@ const getAllUsersFromDB = async () => {
   const result = await userModel.find();
   return result;
 };
+
 export const userService = {
   createUserInDB,
   getAllUsersFromDB,

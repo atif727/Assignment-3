@@ -4,6 +4,7 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { noDataFound } from '../../errors/noDataFoundError';
 import { bookingServices } from './bookings.service';
+import { USER_ROLE } from '../users/user.constant';
 
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
   console.log(req.query.name);
@@ -11,6 +12,7 @@ const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
   if (result.length === 0) {
     noDataFound(res);
   }
+  console.log(USER_ROLE.admin)
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

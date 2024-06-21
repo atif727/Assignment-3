@@ -12,9 +12,9 @@ app.use(cors());
 
 // application
 
+app.use("/api/auth", userRoutes)
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
-app.use("/api/auth", userRoutes)
 
 const home = (req: Request, res: Response) => {
   res.send('erm hii..');
