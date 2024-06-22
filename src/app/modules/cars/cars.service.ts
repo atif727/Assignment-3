@@ -1,4 +1,6 @@
+import httpStatus from 'http-status';
 import myQueryBuilder from '../../builder/QueryBuilder';
+import AppError from '../../errors/AppError';
 import { carSearchAbleFields } from './cars.constant';
 import { Cars, Xcars } from './cars.interface';
 import { carModel } from './cars.model';
@@ -45,6 +47,9 @@ const updateCarById = async (_id: string, payload: Partial<Cars>) => {
   const result = await carModel.findByIdAndUpdate({ _id }, payload, {
     new: true,
   });
+  if (result === null) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  }
   return result;
 };
 
@@ -54,8 +59,11 @@ const deleteCarByIdInDB = async (_id: string) => {
   const result = await carModel.findByIdAndUpdate(
     { _id },
     { isDeleted: true },
-    { new: true },
+    { new: true }
   );
+  if (result === null) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  }
   return result;
 };
 

@@ -22,7 +22,7 @@ const bookingACarInDB = async (
   const TheCar = await carModel.findById(carId);
   // kept a function outside which would give an error response for having null
   if (TheCar === null) {
-    return null;
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   } //  checking if the car is unavailable or deleted
   else if (TheCar.status === 'unavailable' || TheCar.isDeleted === true) {
     return 'Car is not available';
@@ -31,7 +31,7 @@ const bookingACarInDB = async (
   const searchedUser = await userModel.findOne({ email: email });
   // seeing if the user exists (for instance)
   if (searchedUser === null || searchedUser === undefined) {
-    throw new AppError(404, 'something went wrong');
+    throw new AppError(httpStatus.NOT_FOUND, 'something went wrong');
   }
   // excluding unnecessary fields like createdAt and others
   const user: publicUser = {

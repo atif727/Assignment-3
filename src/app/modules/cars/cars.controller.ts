@@ -4,13 +4,13 @@ import catchAsync from '../../utils/catchAsync';
 import { carServices } from './cars.service';
 import sendResponse from '../../utils/sendResponse';
 import { Xcars } from './cars.interface';
-import { noDataFound } from '../../errors/noDataFoundError';
+import AppError from '../../errors/AppError';
 
 // made it get all cars or get cars through query params
 const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
   const result = await carServices.getAllOrQueryCarsFromDB(req.query);
   if (result.length === 0) {
-    noDataFound(res);
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   sendResponse(res, {
     success: true,
@@ -34,7 +34,7 @@ const createCar: RequestHandler = catchAsync(async (req, res) => {
 const findCarById: RequestHandler = catchAsync(async (req, res) => {
   const result = await carServices.getCarById(req.params._id);
   if (result === null) {
-    noDataFound(res);
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   sendResponse(res, {
     success: true,

@@ -2,13 +2,13 @@ import { RequestHandler } from 'express';
 import catchAsync from '../../utils/catchAsync';
 import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
-import { noDataFound } from '../../errors/noDataFoundError';
 import { bookingServices } from './bookings.service';
+import AppError from '../../errors/AppError';
 
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
   const result = await bookingServices.getAllBookingsInDB();
-  if (result.length === 0) {
-    noDataFound(res);
+  if (result === null) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   sendResponse(res, {
     success: true,
@@ -30,7 +30,7 @@ const bookACar: RequestHandler = catchAsync(async (req, res) => {
     email,
   );
   if (result === null) {
-    noDataFound(res);
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   // if car is not available then custom error message
   if (result === 'Car is not available') {
@@ -54,6 +54,9 @@ const getMyBookings: RequestHandler = catchAsync(async (req, res) => {
   const user = req.user
   const email: string = user.email
   const result = await bookingServices.gettingMyBookings(email);
+  if (result === null) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  }
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -68,7 +71,7 @@ const returnBooking: RequestHandler = catchAsync(async (req, res) => {
   const { bookingId, endTime } = req.body;
   const result = await bookingServices.returnCar(bookingId, endTime);
   if (result === null) {
-    noDataFound(res);
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   sendResponse(res, {
     success: true,
