@@ -56,10 +56,24 @@ const updateCarById: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const deleteCarById: RequestHandler = catchAsync(async (req, res) => {
+  const result = await carServices.deleteCarByIdInDB(req.params._id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Car Deleted succesfully',
+    data: result,
+  });
+});
+
+
+
 
 export const carsController = {
   getAllOrQueryCars,
   createCar,
   findCarById,
   updateCarById,
+  deleteCarById
 };

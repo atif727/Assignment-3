@@ -11,7 +11,6 @@ const signIn = async (payload: XloginUser) => {
   if (!userWithPass) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
   }
-
   if (userWithPass.password != payload.password) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
   }
@@ -21,13 +20,13 @@ const signIn = async (payload: XloginUser) => {
   }
 
   const jwtpayload = { email: user.email, role: user.role };
-  const Token = createToken(
+  const token = createToken(
     jwtpayload,
     config.jwt_access_secret as string,
     config.jwt_refresh_expires_in as string,
   );
 
-  const result = { user, Token };
+  const result = { user, token };
   return result;
 };
 

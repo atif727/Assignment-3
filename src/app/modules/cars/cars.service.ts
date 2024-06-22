@@ -45,10 +45,19 @@ const updateCarById = async (_id: string, payload: Partial<Cars>) => {
   return result;
 };
 
+const deleteCarByIdInDB = async (_id: string) => {
+  const result = await carModel.findByIdAndUpdate(
+    { _id },
+    { isDeleted: true },
+    { new: true },
+  );
+  return result;
+};
 
 export const carServices = {
   getAllOrQueryCarsFromDB,
   createCarInDB,
   getCarById,
   updateCarById,
+  deleteCarByIdInDB,
 };
