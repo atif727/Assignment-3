@@ -1,3 +1,4 @@
+import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import subtractTimes from '../../utils/TimeParser';
 import { carModel } from '../cars/cars.model';
@@ -16,7 +17,7 @@ const bookingACarInDB = async (
   carId: string,
   date: string,
   startTime: string,
-  email: string,
+  email: string
 ) => {
   const TheCar = await carModel.findById(carId);
   // kept a function outside which would give an error response for having null
@@ -46,7 +47,7 @@ const bookingACarInDB = async (
   const TheStatusUpdatedCar = await carModel.findByIdAndUpdate(
     carId,
     { status: 'unavailable' },
-    { new: true },
+    { new: true }
   );
   // double checking because it was needed
   // had to do this to stop it from getting error
@@ -78,7 +79,7 @@ const returnCar = async (bookingId: string, endTime: string) => {
   // finding the booking using it's id
   const TheBooking = await bookedModel.findById(bookingId);
   if (TheBooking === null) {
-    return null;
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   // taking the datas and then updating car status upon returning car
   const startTime = TheBooking.startTime;
@@ -90,13 +91,13 @@ const returnCar = async (bookingId: string, endTime: string) => {
   const newCar = await carModel.findByIdAndUpdate(
     _id,
     { status: 'available' },
-    { new: true },
+    { new: true }
   );
-// updating the booking data
+  // updating the booking data
   const booking = await bookedModel.findByIdAndUpdate(
     bookingId,
     { endTime: endTime, totalCost: cost, car: newCar },
-    { new: true },
+    { new: true }
   );
   return booking;
 };
