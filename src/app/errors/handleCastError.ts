@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { XErrorSources, XGenericErrorResponse } from '../interface/error';
-
+// Cast Error Thrower
 const handleCastError = (
   err: mongoose.Error.CastError,
 ): XGenericErrorResponse => {

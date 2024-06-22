@@ -10,9 +10,10 @@ const router = express.Router();
 router.get('/', auth(USER_ROLE.admin), bookingController.getAllBookings);
 router.post(
   '/',
+  auth('user'),
   validateRequest(bookingValidation),
   bookingController.bookACar,
 );
-router.get('/my-bookings', bookingController.getMyBookings);
+router.get('/my-bookings', auth('user'), bookingController.getMyBookings);
 
 export const bookingRoutes = router;

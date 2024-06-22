@@ -5,7 +5,7 @@ const isFutureDate = (dateStr: string): boolean => {
     const date = new Date(dateStr);
     return date > today;
   };
-
+// detailed zod validation
 export const bookingValidation = z.object({
   body: z.object({
     carId: z.string({ required_error: 'Car ID is required' }),

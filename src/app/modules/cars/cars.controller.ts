@@ -8,7 +8,6 @@ import { noDataFound } from '../../errors/noDataFoundError';
 
 // made it get all cars or get cars through query params
 const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
-  console.log(req.query.name);
   const result = await carServices.getAllOrQueryCarsFromDB(req.query);
   if (result.length === 0) {
     noDataFound(res);

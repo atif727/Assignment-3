@@ -1,4 +1,4 @@
-import { Date, ObjectId } from 'mongoose';
+import { Date, Types } from 'mongoose';
 
 export interface Xcars {
   name: string;
@@ -9,8 +9,8 @@ export interface Xcars {
   pricePerHour: number;
 }
 
-export interface Cars {
-  _id: ObjectId
+export type Cars = {
+  _id: Types.ObjectId;
   name: string;
   description: string;
   color: string;
@@ -21,4 +21,4 @@ export interface Cars {
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
-}
+};

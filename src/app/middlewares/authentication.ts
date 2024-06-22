@@ -12,7 +12,7 @@ const auth = (...requiredRoles: XUserRole[]) => {
     const authHeader = req.headers.authorization;
     // token checking
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You have no access to this route!');
     }
     const token = authHeader.split(' ')[1];
     // decoding the token
@@ -31,10 +31,10 @@ const auth = (...requiredRoles: XUserRole[]) => {
 
     // main authentication
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You have no access to this route');
     }
 
-    // added this as JwtPayload just to be secure
+    // added this "as JwtPayload" just to be secure
     req.user = decoded as JwtPayload;
     next();
   });

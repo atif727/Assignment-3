@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import sendResponse from '../utils/sendResponse';
 import { Response } from 'express';
-
+// zod error handler
 export const noDataFound = async (res: Response) => {
   return sendResponse(res, {
     success: false,

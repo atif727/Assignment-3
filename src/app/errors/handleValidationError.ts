@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { XErrorSources, XGenericErrorResponse } from '../interface/error';
-
+//  validation error handler
 const handleValidationError = (
   err: mongoose.Error.ValidationError,
 ): XGenericErrorResponse => {

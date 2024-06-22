@@ -5,8 +5,8 @@ import httpStatus from 'http-status';
 import { authServices } from './auth.service';
 
 const LoginUser: RequestHandler = catchAsync(async (req, res) => {
+  // user logging in
   const result = await authServices.signIn(req.body);
-  console.log(result);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

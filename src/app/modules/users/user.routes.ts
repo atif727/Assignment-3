@@ -9,13 +9,16 @@ import { UserLoginSchema } from '../auth/auth.validation';
 
 const router = express.Router();
 
+// signing up for the first time
 router.post('/signup', validateRequest(UserSchema), userController.createUser);
+// signing in
 router.post(
   '/signin',
   validateRequest(UserLoginSchema),
   authController.LoginUser,
 );
 // using this for dev work purposes
+// confidential route so made it admin only
 router.get('/users', auth(USER_ROLE.admin), userController.getAllUsers);
 
 export const userRoutes = router;

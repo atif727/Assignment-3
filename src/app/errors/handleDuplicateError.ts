@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { XErrorSources, XGenericErrorResponse } from '../interface/error';
-
+// duplicate data error handler
 const handleDuplicateError = (err: any): XGenericErrorResponse => {
   // Extract value within double quotes using regex
   const match = err.message.match(/"([^"]*)"/);

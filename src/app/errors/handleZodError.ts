@@ -1,6 +1,6 @@
 import { ZodError, ZodIssue } from 'zod';
 import { XErrorSources, XGenericErrorResponse } from '../interface/error';
-
+// Zod error handler
 const handleZodError = (err: ZodError): XGenericErrorResponse => {
   const errorSources: XErrorSources = err.issues.map((issue: ZodIssue) => {
     return {

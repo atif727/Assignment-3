@@ -6,8 +6,9 @@ import { xUserInterface } from './user.interface';
 import catchAsync from '../../utils/catchAsync';
 
 const createUser: RequestHandler = catchAsync(async (req, res) => {
+  // taking body of the request
   const body: xUserInterface = req.body;
-  const result = await userService.createUserInDB(req.body);
+  const result = await userService.createUserInDB(body);
 
   sendResponse(res, {
     success: true,
@@ -18,6 +19,7 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
+  // getting all user for dev purposes
   const result = await userService.getAllUsersFromDB();
   sendResponse(res, {
     success: true,

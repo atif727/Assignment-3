@@ -22,4 +22,15 @@ const carUpdateValidationSchema = z.object({
     pricePerHour: z.number().positive().optional(),
   }),
 });
-export const carValidation = { carValidationSchema, carUpdateValidationSchema };
+
+const returnValidationSchema = z.object({
+  body: z.object({
+    bookingId: z.string(),
+    endTime: z.string(),
+  }),
+});
+export const carValidation = {
+  carValidationSchema,
+  carUpdateValidationSchema,
+  returnValidationSchema,
+};

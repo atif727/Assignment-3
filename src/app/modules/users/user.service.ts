@@ -2,6 +2,7 @@ import { UserInterface, xUserInterface } from './user.interface';
 import { userModel } from './user.model';
 
 const createUserInDB = async (body: xUserInterface) => {
+  // creating user in database
   const realBody: Partial<UserInterface> = {
     name: body.name,
     email: body.email,
@@ -15,6 +16,7 @@ const createUserInDB = async (body: xUserInterface) => {
 };
 
 const getAllUsersFromDB = async () => {
+  // getting all users in database for dev reasons
   const result = await userModel.find();
   return result;
 };

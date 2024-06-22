@@ -10,8 +10,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-// application
-
+// kept them here because it was only a few routes
 app.use("/api/auth", userRoutes)
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);

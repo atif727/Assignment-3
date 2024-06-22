@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { noDataFound } from '../errors/noDataFoundError';
 
 type XResponse<X> = {
   statusCode: number;

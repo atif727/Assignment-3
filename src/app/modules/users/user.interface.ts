@@ -1,3 +1,4 @@
+import { ObjectId, Types } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
 export interface xUserInterface {
@@ -8,6 +9,16 @@ export interface xUserInterface {
   phone: string;
   address: string;
 }
+// type for showing user details with _id and not with password
+// this was needed
+export type publicUser = {
+  _id: Types.ObjectId;
+  name: string;
+  email: string;
+  role: 'user' | 'admin';
+  phone: string;
+  address: string;
+};
 
 export interface UserInterface {
   name: string;

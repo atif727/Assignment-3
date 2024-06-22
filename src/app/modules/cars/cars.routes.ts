@@ -7,15 +7,21 @@ import auth from '../../middlewares/authentication';
 
 const router = express.Router();
 
-router.put('/return', auth('admin'), bookingController.returnBooking);
+// return booking handler of admin
+router.put(
+  '/return',
+  auth('admin'),
+  validateRequest(carValidation.returnValidationSchema),
+  bookingController.returnBooking,
+);
 router.get('/', carsController.getAllOrQueryCars);
+router.get('/:_id', carsController.findCarById);
 router.post(
   '/',
   auth('admin'),
   validateRequest(carValidation.carValidationSchema),
   carsController.createCar,
 );
-router.get('/:_id', carsController.findCarById);
 router.put(
   '/:_id',
   auth('admin'),
@@ -23,8 +29,7 @@ router.put(
   carsController.updateCarById,
 );
 
-router.delete('/:_id', carsController.deleteCarById);
-
-// return booking handler of admin
+// soft delete
+router.delete('/:_id', auth('admin'), carsController.deleteCarById);
 
 export const carRoutes = router;

@@ -8,6 +8,7 @@ import { XErrorSources } from '../interface/error';
 import handleCastError from '../errors/handleCastError';
 import AppError from '../errors/AppError';
 
+// global error handler middleware handling all the errors in the Errors folder
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
   let statusCode = 500;

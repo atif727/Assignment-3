@@ -4,15 +4,12 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { noDataFound } from '../../errors/noDataFoundError';
 import { bookingServices } from './bookings.service';
-import { USER_ROLE } from '../users/user.constant';
 
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
-  console.log(req.query.name);
   const result = await bookingServices.getAllBookingsInDB();
   if (result.length === 0) {
     noDataFound(res);
   }
-  console.log(USER_ROLE.admin)
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -22,11 +19,20 @@ const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const bookACar: RequestHandler = catchAsync(async (req, res) => {
+  // taking all the required data from the body of the given request
   const { carId, date, startTime } = req.body;
-  const result = await bookingServices.bookingACarInDB(carId, date, startTime);
+  // taking user's email
+  const { email } = req.user;
+  const result = await bookingServices.bookingACarInDB(
+    carId,
+    date,
+    startTime,
+    email,
+  );
   if (result === null) {
     noDataFound(res);
   }
+  // if car is not available then custom error message
   if (result === 'Car is not available') {
     sendResponse(res, {
       success: false,
@@ -44,7 +50,10 @@ const bookACar: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getMyBookings: RequestHandler = catchAsync(async (req, res) => {
-  const result = await bookingServices.gettingMyBookings();
+  // taking the user's email
+  const user = req.user
+  const email: string = user.email
+  const result = await bookingServices.gettingMyBookings(email);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -55,6 +64,7 @@ const getMyBookings: RequestHandler = catchAsync(async (req, res) => {
 
 // return booking handler of admin
 const returnBooking: RequestHandler = catchAsync(async (req, res) => {
+  // taking all the required data from the body of the given request
   const { bookingId, endTime } = req.body;
   const result = await bookingServices.returnCar(bookingId, endTime);
   if (result === null) {
