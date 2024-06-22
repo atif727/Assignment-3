@@ -26,17 +26,6 @@ const bookingACarInDB = async (
   else if (TheCar.status === 'unavailable' || TheCar.isDeleted === true) {
     return 'Car is not available';
   }
-  // updating the car's status
-  const TheStatusUpdatedCar = await carModel.findByIdAndUpdate(
-    carId,
-    { status: 'unavailable' },
-    { new: true },
-  );
-  // double checking because it was needed
-  // had to do this to stop it from getting error
-  if (TheStatusUpdatedCar === null) {
-    return null;
-  }
   // seaching up the user using logged in user's email
   const searchedUser = await userModel.findOne({ email: email });
   // seeing if the user exists (for instance)
@@ -52,6 +41,18 @@ const bookingACarInDB = async (
     phone: searchedUser.phone,
     address: searchedUser.address,
   };
+
+  // updating the car's status
+  const TheStatusUpdatedCar = await carModel.findByIdAndUpdate(
+    carId,
+    { status: 'unavailable' },
+    { new: true },
+  );
+  // double checking because it was needed
+  // had to do this to stop it from getting error
+  if (TheStatusUpdatedCar === null) {
+    return null;
+  }
 
   // partial {}
   const bookingData: Partial<bookedInterface> = {};

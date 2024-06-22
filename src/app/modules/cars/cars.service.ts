@@ -5,9 +5,12 @@ import { carModel } from './cars.model';
 
 // made it get all cars or get cars through query params
 const getAllOrQueryCarsFromDB = async (query: Record<string, unknown>) => {
-  const carQuery = new myQueryBuilder(carModel.find(), query).search(
-    carSearchAbleFields,
-  );
+  const carQuery = new myQueryBuilder(carModel.find(), query)
+    .search(carSearchAbleFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
 
   const result = await carQuery.modelQuery;
   return result;

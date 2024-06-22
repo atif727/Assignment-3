@@ -3,7 +3,6 @@ import { Cars } from './cars.interface';
 
 export const carsSchema = new Schema<Cars>(
   {
-    _id: { type: Schema.Types.ObjectId },
     name: { type: String, required: true },
     description: { type: String, required: true },
     color: { type: String, required: true },
