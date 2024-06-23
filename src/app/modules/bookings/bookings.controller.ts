@@ -5,8 +5,9 @@ import sendResponse from '../../utils/sendResponse';
 import { bookingServices } from './bookings.service';
 import AppError from '../../errors/AppError';
 
-const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
+const getAllBookings: RequestHandler = catchAsync(async (req, res) => {  
   const result = await bookingServices.getAllBookingsInDB(req.query);
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

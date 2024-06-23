@@ -104,14 +104,14 @@ const returnCar = async (bookingId: string, endTime: string) => {
   } else {
     // taking the datas and then updating car status upon returning car
     const startTime = TheBooking.startTime;
-    const { pricePerHour, carId } = TheBooking.car;
+    const { pricePerHour, _id } = TheBooking.car;
     // using TimeParser utility substractng the times and getting the duration in hours
     const duration = subtractTimes(startTime, endTime);
     // multiplying the cost with the duration and getting the real cost
     const cost = duration * pricePerHour;
     // updating the car
     const newCar = await carModel.findByIdAndUpdate(
-      carId,
+      _id,
       { status: 'available' },
       { new: true }
     );

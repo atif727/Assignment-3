@@ -29,7 +29,7 @@ const createCar: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const findCarById: RequestHandler = catchAsync(async (req, res) => {
-  const result = await carServices.getCarById(req.params.carId);
+  const result = await carServices.getCarById(req.params._id);
   if (result === null) {
     throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
@@ -42,7 +42,7 @@ const findCarById: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const updateCarById: RequestHandler = catchAsync(async (req, res) => {
-  const result = await carServices.updateCarById(req.params.carId, req.body);
+  const result = await carServices.updateCarById(req.params._id, req.body);
 
   sendResponse(res, {
     success: true,
@@ -53,7 +53,7 @@ const updateCarById: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const deleteCarById: RequestHandler = catchAsync(async (req, res) => {
-  const result = await carServices.deleteCarByIdInDB(req.params.carId);
+  const result = await carServices.deleteCarByIdInDB(req.params._id);
 
   sendResponse(res, {
     success: true,

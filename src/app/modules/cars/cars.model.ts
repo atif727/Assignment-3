@@ -19,16 +19,4 @@ export const carsSchema = new Schema<Cars>(
   { timestamps: true, versionKey: false } // Automatically add createdAt and updatedAt fields
 );
 
-// using this to rename _id to carId
-carsSchema.virtual('carId').get(function () {
-  return this._id.toHexString();
-});
-
-carsSchema.set('toJSON', {
-  virtuals: true,
-  transform: (doc, ret) => {
-    delete ret._id;
-  },
-});
-
 export const carModel = model<Cars>('car', carsSchema);

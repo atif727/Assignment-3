@@ -10,7 +10,7 @@ export interface Xcars {
 }
 
 export type Cars = {
-  carId: Types.ObjectId;
+  _id: Types.ObjectId;
   name: string;
   description: string;
   color: string;
