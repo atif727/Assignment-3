@@ -1,15 +1,17 @@
 Keywords you can use in query to search accordingly for getting specific bookings
 
-booking id: _id
-booking date: date
-booking start time: startTime
-booking end time: endTime
-user's Id: user._id
-user's name: user.name
-user's email: user.email
-user's phone: user.phone
-car's id: car._id
-car's name: car.name
-car's color: car.color
-car's is electric status: car.isElectric (value is a boolean)
-car's total cost : totalCost
+Remember, these are fields not values**
+
+_id
+date
+startTime
+endTime
+user._id
+user.name
+user.email
+user.phone
+car._id
+car.name
+car.color
+car.isElectric
+totalCost
