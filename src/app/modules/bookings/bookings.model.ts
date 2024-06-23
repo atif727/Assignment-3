@@ -6,7 +6,7 @@ import { PublicUserSchemaModel } from '../users/user.model';
 
 const bookedSchema = new Schema<bookedInterface>(
   {
-    date: { type: String, required: true },
+    date: { type: String, required: true, trim: true },
     startTime: { type: String, required: true },
     endTime: { type: String, default: null },
     user: PublicUserSchemaModel,

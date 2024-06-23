@@ -1,7 +1,7 @@
 import { z } from 'zod';
 const carValidationSchema = z.object({
   body: z.object({
-    name: z.string({ required_error: 'Name is required' }),
+    name: z.string({ required_error: 'Name is required' }).max(10, {message: "name can't be more than 10 charachters"}),
     description: z.string({ required_error: 'Description is required' }),
     color: z.string({ required_error: 'Color is required' }),
     isElectric: z.boolean({ required_error: 'isElectric is required' }),

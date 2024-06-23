@@ -9,31 +9,32 @@ const signIn = async (payload: XloginUser) => {
   const userWithPass = await userModel
     .findOne({ email: payload.email })
     .select('+password'); // this is what i used to get the password for password verification
-    // checking if user is found
-  if (!userWithPass) {
+  // checking if user is found
+  if (!userWithPass || userWithPass === null || userWithPass === undefined) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
-  }
-  // checking if password is correct
-  if (userWithPass.password != payload.password) {
+  } // checking if password is correct
+  else if (userWithPass.password != payload.password) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
+  } else {
+    // getting user without password
+    const user = await userModel.findOne({ email: payload.email });
+    if (!user || user === null || user === undefined) {
+      // just to be extra secure
+      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+    } else {
+      // putting jwtpayload information and creating a token
+      const jwtpayload = { email: user.email, role: user.role };
+      const token = createToken(
+        jwtpayload,
+        config.jwt_access_secret as string,
+        config.jwt_refresh_expires_in as string
+      );
+      // not putting any refresh token generetor as this is a practice project/assignment
+      // returning user with no password shown and token
+      const result = { user, token };
+      return result;
+    }
   }
-  // getting user without password
-  const user = await userModel.findOne({ email: payload.email });
-  if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
-  }
-
-  // putting jwtpayload information and creating a token
-  const jwtpayload = { email: user.email, role: user.role };
-  const token = createToken(
-    jwtpayload,
-    config.jwt_access_secret as string,
-    config.jwt_refresh_expires_in as string,
-  );
-  // not putting any refresh token generetor as this is a practice project/assignment
-  // returning user with no password shown and token
-  const result = { user, token };
-  return result;
 };
 
 export const authServices = { signIn };

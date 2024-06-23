@@ -1,3 +1,5 @@
+import httpStatus from 'http-status';
+import AppError from '../../errors/AppError';
 import { UserInterface, xUserInterface } from './user.interface';
 import { userModel } from './user.model';
 
@@ -18,7 +20,11 @@ const createUserInDB = async (body: xUserInterface) => {
 const getAllUsersFromDB = async () => {
   // getting all users in database for dev reasons
   const result = await userModel.find();
-  return result;
+  if (result.length === 0 || result === null || result === undefined) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No User Found');
+  } else {
+    return result;
+  }
 };
 
 export const userService = {

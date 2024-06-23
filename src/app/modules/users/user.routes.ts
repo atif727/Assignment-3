@@ -19,6 +19,6 @@ router.post(
 );
 // using this for dev work purposes
 // confidential route so made it admin only
-router.get('/users', auth(USER_ROLE.admin), userController.getAllUsers);
+router.get('/users', auth("admin"), userController.getAllUsers);
 
 export const userRoutes = router;

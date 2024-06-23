@@ -9,9 +9,6 @@ import AppError from '../../errors/AppError';
 // made it get all cars or get cars through query params
 const getAllOrQueryCars: RequestHandler = catchAsync(async (req, res) => {
   const result = await carServices.getAllOrQueryCarsFromDB(req.query);
-  if (result.length === 0) {
-    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
-  }
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -66,13 +63,10 @@ const deleteCarById: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-
-
-
 export const carsController = {
   getAllOrQueryCars,
   createCar,
   findCarById,
   updateCarById,
-  deleteCarById
+  deleteCarById,
 };

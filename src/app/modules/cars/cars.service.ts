@@ -15,7 +15,11 @@ const getAllOrQueryCarsFromDB = async (query: Record<string, unknown>) => {
     .fields();
 
   const result = await carQuery.modelQuery;
-  return result;
+  if (result.length === 0) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  } else {
+    return result;
+  }
 };
 
 const createCarInDB = async (car: Xcars) => {
@@ -39,7 +43,11 @@ const createCarInDB = async (car: Xcars) => {
 const getCarById = async (_id: string) => {
   // getting car by only _id
   const result = await carModel.findById(_id);
-  return result;
+  if (result === null || result === undefined) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Car Found');
+  } else {
+    return result;
+  }
 };
 
 const updateCarById = async (_id: string, payload: Partial<Cars>) => {
@@ -47,10 +55,11 @@ const updateCarById = async (_id: string, payload: Partial<Cars>) => {
   const result = await carModel.findByIdAndUpdate({ _id }, payload, {
     new: true,
   });
-  if (result === null) {
-    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  if (result === null || result === undefined) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Car Found');
+  } else {
+    return result;
   }
-  return result;
 };
 
 // soft delete
@@ -61,10 +70,11 @@ const deleteCarByIdInDB = async (_id: string) => {
     { isDeleted: true },
     { new: true }
   );
-  if (result === null) {
-    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  if (result === null || result === undefined) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No Car Found');
+  } else {
+    return result;
   }
-  return result;
 };
 
 export const carServices = {

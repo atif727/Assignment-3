@@ -3,7 +3,7 @@ import { Cars } from './cars.interface';
 
 export const carsSchema = new Schema<Cars>(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true, maxlength: 10 },
     description: { type: String, required: true },
     color: { type: String, required: true },
     isElectric: { type: Boolean, required: true },

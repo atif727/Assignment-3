@@ -7,9 +7,7 @@ import AppError from '../../errors/AppError';
 
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
   const result = await bookingServices.getAllBookingsInDB();
-  if (result === null) {
-    throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
-  }
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -27,19 +25,10 @@ const bookACar: RequestHandler = catchAsync(async (req, res) => {
     carId,
     date,
     startTime,
-    email,
+    email
   );
   if (result === null) {
     throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
-  }
-  // if car is not available then custom error message
-  if (result === 'Car is not available') {
-    sendResponse(res, {
-      success: false,
-      statusCode: httpStatus.BAD_REQUEST,
-      message: 'Car is not available',
-      data: result,
-    });
   }
   sendResponse(res, {
     success: true,
@@ -51,10 +40,10 @@ const bookACar: RequestHandler = catchAsync(async (req, res) => {
 
 const getMyBookings: RequestHandler = catchAsync(async (req, res) => {
   // taking the user's email
-  const user = req.user
-  const email: string = user.email
+  const user = req.user;
+  const email: string = user.email;
   const result = await bookingServices.gettingMyBookings(email);
-  if (result === null) {
+  if (result === null || result === undefined) {
     throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
   }
   sendResponse(res, {
@@ -70,15 +59,16 @@ const returnBooking: RequestHandler = catchAsync(async (req, res) => {
   // taking all the required data from the body of the given request
   const { bookingId, endTime } = req.body;
   const result = await bookingServices.returnCar(bookingId, endTime);
-  if (result === null) {
+  if (result === null || result === undefined) {
     throw new AppError(httpStatus.NOT_FOUND, 'No Data Found');
+  } else {
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Bookings retrieved succesfully',
+      data: result,
+    });
   }
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: 'Bookings retrieved succesfully',
-    data: result,
-  });
 });
 
 export const bookingController = {
