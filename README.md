@@ -1,5 +1,5 @@
 # Public live link of this server
-> https://ecommerce-website-by-atif.vercel.app/
+> [Server](https://assignment3-eta-ecru.vercel.app/)
 
 ## This is a server for a shop that sells keyboard
 > **IT HAS PRODUCTS OF BASICALLY KEYBOARDS ONLY**
