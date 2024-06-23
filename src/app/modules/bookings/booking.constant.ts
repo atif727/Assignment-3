@@ -1,0 +1,15 @@
+export const bookingSearchAbleFields = [
+  '_id',
+  'date',
+  'startTime',
+  'endTime',
+  'user._id',
+  'user.name',
+  'user.email',
+  'user.phone',
+  'car._id',
+  'car.name',
+  'car.color',
+  'car.isElectric',
+  'totalCost',
+];

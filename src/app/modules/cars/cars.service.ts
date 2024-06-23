@@ -40,9 +40,9 @@ const createCarInDB = async (car: Xcars) => {
   return result;
 };
 
-const getCarById = async (_id: string) => {
-  // getting car by only _id
-  const result = await carModel.findById(_id);
+const getCarById = async (carId: string) => {
+  // getting car by only carId
+  const result = await carModel.find({ carId });
   if (result === null || result === undefined) {
     throw new AppError(httpStatus.NOT_FOUND, 'No Car Found');
   } else {
@@ -50,9 +50,9 @@ const getCarById = async (_id: string) => {
   }
 };
 
-const updateCarById = async (_id: string, payload: Partial<Cars>) => {
+const updateCarById = async (carId: string, payload: Partial<Cars>) => {
   // updating car using _id and given information
-  const result = await carModel.findByIdAndUpdate({ _id }, payload, {
+  const result = await carModel.findByIdAndUpdate({ carId }, payload, {
     new: true,
   });
   if (result === null || result === undefined) {
@@ -63,10 +63,10 @@ const updateCarById = async (_id: string, payload: Partial<Cars>) => {
 };
 
 // soft delete
-const deleteCarByIdInDB = async (_id: string) => {
+const deleteCarByIdInDB = async (carId: string) => {
   // instead of deleting the car from the database we changed the isDeleted status to true
   const result = await carModel.findByIdAndUpdate(
-    { _id },
+    { carId },
     { isDeleted: true },
     { new: true }
   );

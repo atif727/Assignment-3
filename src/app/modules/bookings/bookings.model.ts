@@ -13,7 +13,7 @@ const bookedSchema = new Schema<bookedInterface>(
     car: carsSchema,
     totalCost: { type: Number },
   },
-  { timestamps: true }, // Automatically add createdAt and updatedAt fields
+  { timestamps: true, versionKey: false }, // Automatically add createdAt and updatedAt fields
 );
 
 export const bookedModel = model<bookedInterface>('booking', bookedSchema);

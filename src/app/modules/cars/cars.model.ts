@@ -16,7 +16,19 @@ export const carsSchema = new Schema<Cars>(
     },
     isDeleted: { type: Boolean, default: false, required: true },
   },
-  { timestamps: true }, // Automatically add createdAt and updatedAt fields
+  { timestamps: true, versionKey: false } // Automatically add createdAt and updatedAt fields
 );
+
+// using this to rename _id to carId
+carsSchema.virtual('carId').get(function () {
+  return this._id.toHexString();
+});
+
+carsSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    delete ret._id;
+  },
+});
 
 export const carModel = model<Cars>('car', carsSchema);

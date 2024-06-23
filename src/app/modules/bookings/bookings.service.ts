@@ -6,10 +6,19 @@ import { publicUser } from '../users/user.interface';
 import { userModel } from '../users/user.model';
 import { bookedInterface } from './bookings.interface';
 import { bookedModel } from './bookings.model';
+import myQueryBuilder from '../../builder/QueryBuilder';
+import { bookingSearchAbleFields } from './booking.constant';
 
-const getAllBookingsInDB = async () => {
-  // getting all the bookings in database
-  const result = await bookedModel.find();
+const getAllBookingsInDB = async (query: Record<string, unknown>) => {
+  // getting all the bookings or filtering bookings in database
+  const bookingQuery = new myQueryBuilder(bookedModel.find(), query)
+    .search(bookingSearchAbleFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+    const result = await bookingQuery.modelQuery;
   if (result.length === 0 || result === null || result === undefined) {
     throw new AppError(httpStatus.NOT_FOUND, 'No Booking Found');
   } else {
@@ -95,14 +104,14 @@ const returnCar = async (bookingId: string, endTime: string) => {
   } else {
     // taking the datas and then updating car status upon returning car
     const startTime = TheBooking.startTime;
-    const { pricePerHour, _id } = TheBooking.car;
+    const { pricePerHour, carId } = TheBooking.car;
     // using TimeParser utility substractng the times and getting the duration in hours
     const duration = subtractTimes(startTime, endTime);
     // multiplying the cost with the duration and getting the real cost
     const cost = duration * pricePerHour;
     // updating the car
     const newCar = await carModel.findByIdAndUpdate(
-      _id,
+      carId,
       { status: 'available' },
       { new: true }
     );
