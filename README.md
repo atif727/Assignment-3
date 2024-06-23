@@ -1,5 +1,9 @@
 # Public live link of this server
+<<<<<<< HEAD
 > [SERVER LINK](https://assignment3-eta-ecru.vercel.app/)
+=======
+> [Server](https://assignment3-eta-ecru.vercel.app/)
+>>>>>>> f21b37b269e455d6fd7714109015965a48e34630
 
 ## This is a server for a shop that gives car for rent
 > **IT HAS PRODUCTS OF BASICALLY KEYBOARDS ONLY**
