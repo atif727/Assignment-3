@@ -1,0 +1,10 @@
+Follow this structure 
+
+{
+    "name": "Tesla Model 3",
+    "description": "An electric car with advanced technology and performance.",
+    "color": "White",
+    "isElectric": true,
+    "features": ["AC", "Bluetooth", "Long Range Battery"],
+    "pricePerHour": 500
+  }

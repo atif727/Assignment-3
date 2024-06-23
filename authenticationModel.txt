@@ -1,0 +1,17 @@
+Follow this structure for signing up
+
+{
+    "name": "Alice Johnson",
+    "email": "alicejohnson@example.com",
+    "role": "user",
+    "password": "password789",
+    "phone": "3456789012",
+    "address": "789 Pine St, Village, Country"
+}
+
+Follow this structure for signing in
+
+{
+    "email" : "alicejohnson@example.com",
+    "password": "password789"
+}

@@ -1,0 +1,6 @@
+Follow this structure for returning a booking
+
+{
+   "bookingId": "60d9c4e4f3b4b544b8b8d1c7", // the booking id not the car or user id
+   "endTime": "15:00" // should maintain this 24 hour format
+}
