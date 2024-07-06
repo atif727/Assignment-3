@@ -1,7 +1,7 @@
 Follow this structure
 
 {
-   "carId": "60d9c4e4f3b4b544b8b8d1c7", // your desired car's id
-   "date": "2024-06-15", // date must be in this format and also in future
+   "carId": "66783300b4d1964eb594786a", // your desired car's id
+   "date": "2024-12-15", // date must be in this format and also in future
    "startTime": "13:00", // should maintain this 24 hour format
 }
